@@ -32,6 +32,17 @@ a:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-
   border-bottom: 1px solid var(--line);
 }
 .logo { font-family: "Playfair Display", serif; font-size: 1.25rem; text-decoration: none; }
+
+.menu-btn {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 42px; height: 42px; padding: 10px; background: none; border: 0; cursor: pointer;
+}
+.menu-btn span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
 .nav nav { display: flex; gap: 24px; }
 .nav nav a { text-decoration: none; font-size: 0.95rem; color: var(--muted); transition: color 0.2s; }
 .nav nav a:hover, .nav nav a.active { color: var(--accent); }
@@ -102,9 +113,15 @@ footer { text-align: center; padding: 32px 6vw; color: var(--muted); font-size: 
 
 /* Mobile */
 @media (max-width: 760px) {
-  .nav nav { gap: 14px; }
-  .nav nav a { font-size: 0.82rem; }
-  .logo { font-size: 1.05rem; }
+ .menu-btn { display: flex; }
+.nav nav {
+  position: absolute; top: 100%; left: 0; right: 0;
+  flex-direction: column; gap: 0;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.nav nav.open { max-height: 320px; }
+.nav nav a { font-size: 1rem; padding: 14px 6vw; border-top: 1px solid var(--line); }
   .hero { grid-template-columns: 1fr; text-align: center; padding-top: 48px; gap: 40px; }
   .hero-text { order: 2; }
   .photo { order: 1; }
